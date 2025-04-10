@@ -1,5 +1,6 @@
 package com.bruceycode.activemq_demo;
 
+import com.bruceycode.activemq_demo.component.MessageConsumer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

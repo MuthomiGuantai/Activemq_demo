@@ -1,5 +1,6 @@
 package com.bruceycode.activemq_demo.service;
 
+import org.apache.camel.ProducerTemplate;
 import org.slf4j.Logger;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageServiceImpl implements MessageService {
     private final Logger logger;
-    private final JmsTemplate jmsTemplate;
+    private final ProducerTemplate producerTemplate;
     public int attemptCount = 0;
 
 
-    public MessageServiceImpl(JmsTemplate jmsTemplate, Logger logger) {
-        this.jmsTemplate = jmsTemplate;
+    public MessageServiceImpl( Logger logger, ProducerTemplate producerTemplate) {
+        this.producerTemplate = producerTemplate;
         this.logger = logger;
     }
 
@@ -29,7 +30,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public void sendMessage(String message) {
-        jmsTemplate.convertAndSend("demo-queue", message);
+        producerTemplate.sendBody("direct:sendMessage", message);
         logger.info("Sent message to demo-queue: {}", message);
     }
 }

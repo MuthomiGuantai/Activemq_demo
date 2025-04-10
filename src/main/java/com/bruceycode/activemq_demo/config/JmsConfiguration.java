@@ -2,6 +2,7 @@ package com.bruceycode.activemq_demo.config;
 
 import jakarta.jms.ConnectionFactory;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.camel.component.jms.JmsComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
@@ -20,8 +21,10 @@ public class JmsConfiguration {
     }
 
     @Bean
-    public JmsTemplate jmsTemplate(ActiveMQConnectionFactory connectionFactory) {
-        return new JmsTemplate(connectionFactory);
+    public JmsComponent jmsComponent(ActiveMQConnectionFactory connectionFactory) {
+        JmsComponent jms = new JmsComponent();
+        jms.setConnectionFactory(connectionFactory);
+        return jms;
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package com.bruceycode.activemq_demo;
 
 import com.bruceycode.activemq_demo.service.MessageServiceImpl;
+import org.apache.camel.ProducerTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class MessageServiceImplTest {
 
     @Mock
-    private JmsTemplate jmsTemplate;
+    private ProducerTemplate producerTemplate;
 
     @Mock
     private Logger logger;
@@ -32,7 +33,7 @@ public class MessageServiceImplTest {
 
         messageService.sendMessage(message);
 
-        verify(jmsTemplate, times(1)).convertAndSend(destination, message);
+        verify(producerTemplate, times(1)).sendBody("direct:sendMessage", message);
         verify(logger, times(1)).info("Sent message to demo-queue: {}", message);
     }
 
