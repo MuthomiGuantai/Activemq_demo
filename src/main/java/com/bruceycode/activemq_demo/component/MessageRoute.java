@@ -7,6 +7,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 @Component
 public class MessageRoute extends RouteBuilder {
@@ -20,7 +21,9 @@ public class MessageRoute extends RouteBuilder {
                 .routeId("sendMessageRoute")
                 .process(exchange -> {
                     String body = exchange.getIn().getBody(String.class);
-                    String enrichedBody = body + " [Sent at " + System.currentTimeMillis() + "]";
+                    Long timestamp = exchange.getContext().getRegistry()
+                            .lookupByNameAndType("fixedTimestamp", Long.class);
+                    String enrichedBody = body + " [Sent at " + timestamp + "]";
                     exchange.getIn().setBody(enrichedBody);
                     logRepository.save(new MessageLog(enrichedBody, LocalDateTime.now()));
                 })

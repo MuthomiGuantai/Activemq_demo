@@ -14,4 +14,6 @@ public class MessageConsumer {
     public void receiveMessage(String message) {
         logger.info("Received message from demo-queue: {}", message);
     }
+
+
 }
