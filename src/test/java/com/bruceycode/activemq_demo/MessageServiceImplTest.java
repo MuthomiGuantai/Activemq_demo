@@ -2,14 +2,12 @@ package com.bruceycode.activemq_demo;
 
 import com.bruceycode.activemq_demo.service.MessageServiceImpl;
 import org.apache.camel.ProducerTemplate;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
-import org.springframework.jms.core.JmsTemplate;
 
 import static org.mockito.Mockito.*;
 
@@ -43,13 +41,13 @@ public class MessageServiceImplTest {
 
         for (int i = 1; i <= 3; i++) {
             try {
-                messageService.receiveMessage(message);
+                messageService.processMessage(message);
             } catch (RuntimeException e) {
             }
             verify(logger, times(1)).info("Attempt {} for message: {}", i, message);
         }
 
-        messageService.receiveMessage(message);
+        messageService.processMessage(message);
         verify(logger, times(1)).info("Successfully received: {}", message);
 
         verify(logger, times(4)).info(anyString(), any(), any());

@@ -18,8 +18,7 @@ public class MessageServiceImpl implements MessageService {
         this.logger = logger;
     }
 
-    @JmsListener(destination = "demo-queue")
-    public void receiveMessage(String message) {
+    public void processMessage(String message) {
         attemptCount++;
         logger.info("Attempt {} for message: {}", attemptCount, message);
         if (attemptCount <= 3) {
