@@ -2,8 +2,6 @@ package com.bruceycode.activemq_demo.service;
 
 import org.apache.camel.ProducerTemplate;
 import org.slf4j.Logger;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 @Service

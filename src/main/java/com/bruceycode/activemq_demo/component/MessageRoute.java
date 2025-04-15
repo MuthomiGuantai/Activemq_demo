@@ -7,7 +7,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
 
 @Component
 public class MessageRoute extends RouteBuilder {
